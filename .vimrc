@@ -12,11 +12,11 @@ call neobundle#begin(expand('~/.vim/bundle/'))
 
 NeoBundleFetch 'Shougo/neobundle.vim'
 
-NeoBundle 'davidhalter/jedi-vim'
 NeoBundle 'thinca/vim-quickrun'
 NeoBundle 'nvie/vim-flake8'
 NeoBundle 'nathanaelkane/vim-indent-guides'
 NeoBundle 'elixir-lang/vim-elixir'
+NeoBundle 'rust-lang/rust.vim'
 NeoBundle 'othree/yajs.vim'
 NeoBundle 'plasticboy/vim-markdown'
 NeoBundle 'kannokanno/previm'
@@ -31,6 +31,8 @@ NeoBundle 'Shougo/neosnippet'
 NeoBundle 'Shougo/neosnippet-snippets'
 NeoBundleLazy 'kana/vim-altr'
 NeoBundle 'Shougo/unite-outline'
+NeoBundle 'cespare/vim-toml'
+NeoBundle 'mkitt/tabline.vim'
 
 call neobundle#end()
 
@@ -42,7 +44,7 @@ NeoBundleCheck
 :let erlang_force_use_vimerl_indent = 0
 autocmd FileType erlang setl tabstop=8 expandtab shiftwidth=2 softtabstop=2
 
-autocmd FileType go setl tabstop=4 expandtab shiftwidth=4 softtabstop=4
+autocmd FileType go setl tabstop=4 shiftwidth=4 softtabstop=4
 
 colorscheme hybrid
 
@@ -51,6 +53,11 @@ let g:previm_open_cmd = 'open -a "Google Chrome"'
 
 let g:neocomplete#enable_at_startup = 1
 
+" Swap
+noremap : ;
+noremap ; :
+
+" Unite
 let g:unite_enable_start_insert=1
 let g:unite_source_history_yank_enable =1
 let g:unite_source_file_mru_limit = 200
@@ -104,9 +111,5 @@ filetype indent on
 
 let g:indent_guides_enable_on_vim_startup=1
 let g:indent_guides_guide_size=1
-
-let g:jedi#popup_on_dot = 1
-let g:jedi#popup_select_first = 0
-let g:jedi#rename_command = '<Leader>R'
 
 autocmd BufNewFile,BufRead *.es6 set filetype=javascript
