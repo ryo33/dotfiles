@@ -1,0 +1,16 @@
+alias fuck='eval $(thefuck $(fc -ln -1 | tail -n 1)); fc -R'
+alias v=vim
+alias g=git
+alias test=./test.sh
+alias edit=./edit.sh
+alias restart='exec $SHELL -l'
+alias gs='git status -s'
+alias gco='git checkout'
+alias gc='git commit'
+alias gd='git diff'
+alias gdc='git diff --cached'
+alias gl='git log'
+alias gfm='git pull'
+alias gp='git push'
+alias gb='git branch'
+alias git=hub
