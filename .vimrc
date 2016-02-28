@@ -11,28 +11,37 @@ endif
 call neobundle#begin(expand('~/.vim/bundle/'))
 
 NeoBundleFetch 'Shougo/neobundle.vim'
-
-NeoBundle 'thinca/vim-quickrun'
-NeoBundle 'nvie/vim-flake8'
-NeoBundle 'nathanaelkane/vim-indent-guides'
-NeoBundle 'elixir-lang/vim-elixir'
-NeoBundle 'rust-lang/rust.vim'
-NeoBundle 'othree/yajs.vim'
-NeoBundle 'plasticboy/vim-markdown'
-NeoBundle 'kannokanno/previm'
-NeoBundle 'tyru/open-browser.vim'
-NeoBundle 'jimenezrick/vimerl'
-NeoBundle 'tpope/vim-pathogen'
-NeoBundle 'fatih/vim-go'
+" General
 NeoBundle 'w0ng/vim-hybrid'
-NeoBundle 'Shougo/neocomplete.vim'
-NeoBundle 'Shougo/unite.vim'
 NeoBundle 'Shougo/neosnippet'
 NeoBundle 'Shougo/neosnippet-snippets'
-NeoBundleLazy 'kana/vim-altr'
 NeoBundle 'Shougo/unite-outline'
-NeoBundle 'cespare/vim-toml'
 NeoBundle 'mkitt/tabline.vim'
+NeoBundle 'Shougo/neocomplete.vim'
+NeoBundle 'nathanaelkane/vim-indent-guides'
+NeoBundleLazy 'Shougo/unite.vim', {'autoload': {'command': ['Unite']}}
+" Languages
+NeoBundle 'mxw/vim-jsx'
+NeoBundle 'pangloss/vim-javascript'
+" NeoBundleLazy 'othree/yajs.vim', {'autoload': {'filetypes': ['javascript']}}
+NeoBundleLazy 'elixir-lang/vim-elixir', {'autoload': {'filetypes': ['elixir', 'eelixir']}}
+NeoBundleLazy 'rust-lang/rust.vim', {'autoload': {'filetypes': ['rust']}}
+NeoBundleLazy 'othree/yajs.vim', {'autoload': {'filetypes': ['javascript']}}
+NeoBundleLazy 'plasticboy/vim-markdown', {'autoload': {'filetypes': ['markdown']}}
+NeoBundleLazy 'jimenezrick/vimerl', {'autoload': {'filetypes': ['erlang']}}
+NeoBundleLazy 'fatih/vim-go', {'autoload': {'filetypes': ['go']}}
+NeoBundleLazy 'cespare/vim-toml', {'autoload': {'filetypes': ['toml']}}
+NeoBundleLazy 'vim-scripts/ebnf.vim', {'autoload': {'filetypes': ['ebnf']}}
+NeoBundleLazy 'avakhov/vim-yaml', {'autoload': {'filetypes': ['yaml']}}
+" Others
+NeoBundleLazy 'thinca/vim-quickrun', {'autoload': {'command': ['QuickRun']}}
+NeoBundleLazy 'kannokanno/previm',
+            \{'autoload': {
+            \'filetypes': ['markdown'],
+            \'command': ['PrevimOpen']
+            \}}
+NeoBundleLazy 'tyru/open-browser.vim', {'autoload': {'command': ['PrevimOpen']}}
+NeoBundle 'ryo33/powerful-type.vim'
 
 call neobundle#end()
 
@@ -41,6 +50,17 @@ filetype plugin indent on
 
 NeoBundleCheck
 "/NeoBundle
+
+" status bar
+let g:lightline = { 
+    \ 'colorscheme': 'solarized_dark.vim',
+    \ 'component': {
+    \   'readonly': '%{&readonly?"⭤":""}',
+    \ }
+    \ }
+set laststatus=2
+" /status bar
+
 :let erlang_force_use_vimerl_indent = 0
 autocmd FileType erlang setl tabstop=8 expandtab shiftwidth=2 softtabstop=2
 
@@ -53,10 +73,6 @@ let g:previm_open_cmd = 'open -a "Google Chrome"'
 
 let g:neocomplete#enable_at_startup = 1
 
-" Swap
-noremap : ;
-noremap ; :
-
 " Unite
 let g:unite_enable_start_insert=1
 let g:unite_source_history_yank_enable =1
@@ -67,9 +83,6 @@ nnoremap <silent> ,uf :<C-u>UniteWithBufferDir -buffer-name=files file<CR>
 nnoremap <silent> ,ur :<C-u>Unite -buffer-name=register register<CR>
 nnoremap <silent> ,uu :<C-u>Unite file_mru buffer<CR>
 nnoremap <silent> ,tabe :<C-u>tabe<CR>:<C-u>UniteWithBufferDir -buffer-name=files file<CR>
-
-"vim-altr
-nnoremap <Leader>h <Plug>(altr-forward)
 
 syntax on
 set encoding=utf8
@@ -97,19 +110,39 @@ set virtualedit=all
 set cursorline
 hi clear CursorLine
 
+" Prevent the delay of `O`.
+set timeout timeoutlen=5000 ttimeoutlen=100
+
 autocmd FileType python setl autoindent
 autocmd FileType python setl smartindent cinwords=if,elif,else,for,while,try,except,finally,def,class
 autocmd FileType python setl tabstop=8 expandtab shiftwidth=4 softtabstop=4
 autocmd FileType python setlocal completeopt-=preview
 
-filetype indent plugin on
+autocmd FileType yaml set tabstop=2
+
 set tabstop=8
 set expandtab
 set softtabstop=4
 set shiftwidth=4
-filetype indent on
 
 let g:indent_guides_enable_on_vim_startup=1
 let g:indent_guides_guide_size=1
 
-autocmd BufNewFile,BufRead *.es6 set filetype=javascript
+augroup filetypes
+    autocmd!
+    autocmd BufNewFile,BufRead *.md,*.mkd set filetype=markdown
+    autocmd BufNewFile,BufRead *.es6 set filetype=javascript
+    autocmd BufNewFile,BufRead *.toml set filetype=toml
+    autocmd BufNewFile,BufRead *.rs set filetype=rust
+    autocmd BufNewFile,BufRead *.ex set filetype=elixir
+    autocmd BufNewFile,BufRead *.exs set filetype=elixir
+    autocmd BufNewFile,BufRead *.eex set filetype=eelixir
+    autocmd BufNewFile,BufRead *.ebnf set filetype=ebnf
+augroup END
+
+command! MarkdownPreview PrevimOpen
+
+" neosnippet
+imap <C-k>     <Plug>(neosnippet_expand_or_jump)
+smap <C-k>     <Plug>(neosnippet_expand_or_jump)
+xmap <C-k>     <Plug>(neosnippet_expand_target)
