@@ -21,12 +21,10 @@ NeoBundle 'Shougo/neocomplete.vim'
 NeoBundle 'nathanaelkane/vim-indent-guides'
 NeoBundleLazy 'Shougo/unite.vim', {'autoload': {'command': ['Unite']}}
 " Languages
-NeoBundle 'mxw/vim-jsx'
-NeoBundle 'pangloss/vim-javascript'
-" NeoBundleLazy 'othree/yajs.vim', {'autoload': {'filetypes': ['javascript']}}
+NeoBundleLazy 'mxw/vim-jsx', {'autoload': {'filetypes': ['javascript']}}
+NeoBundleLazy 'pangloss/vim-javascript', {'autoload': {'filetypes': ['javascript']}}
 NeoBundleLazy 'elixir-lang/vim-elixir', {'autoload': {'filetypes': ['elixir', 'eelixir']}}
 NeoBundleLazy 'rust-lang/rust.vim', {'autoload': {'filetypes': ['rust']}}
-NeoBundleLazy 'othree/yajs.vim', {'autoload': {'filetypes': ['javascript']}}
 NeoBundleLazy 'plasticboy/vim-markdown', {'autoload': {'filetypes': ['markdown']}}
 NeoBundleLazy 'jimenezrick/vimerl', {'autoload': {'filetypes': ['erlang']}}
 NeoBundleLazy 'fatih/vim-go', {'autoload': {'filetypes': ['go']}}
@@ -131,7 +129,8 @@ let g:indent_guides_guide_size=1
 augroup filetypes
     autocmd!
     autocmd BufNewFile,BufRead *.md,*.mkd set filetype=markdown
-    autocmd BufNewFile,BufRead *.es6 set filetype=javascript
+    autocmd BufNewFile,BufRead *.jsx set filetype=javascript.jsx
+    autocmd BufNewFile,BufRead *.js set filetype=javascript.jsx
     autocmd BufNewFile,BufRead *.toml set filetype=toml
     autocmd BufNewFile,BufRead *.rs set filetype=rust
     autocmd BufNewFile,BufRead *.ex set filetype=elixir
