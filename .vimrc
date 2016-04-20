@@ -16,7 +16,6 @@ NeoBundle 'w0ng/vim-hybrid'
 NeoBundle 'Shougo/neosnippet'
 NeoBundle 'Shougo/neosnippet-snippets'
 NeoBundle 'Shougo/unite-outline'
-NeoBundle 'mkitt/tabline.vim'
 NeoBundle 'Shougo/neocomplete.vim'
 NeoBundle 'nathanaelkane/vim-indent-guides'
 NeoBundleLazy 'Shougo/unite.vim', {'autoload': {'command': ['Unite']}}
