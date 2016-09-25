@@ -1,3 +1,4 @@
+alias vim=nvim
 alias v=vim
 alias g=git
 alias restart='exec $SHELL -l'

@@ -1,52 +1,47 @@
-"NeoBundle
-if !1 | finish | endif
-
-if has('vim_starting')
-    if &compatible
-        set nocompatible
-    endif
-    set runtimepath+=~/.vim/bundle/neobundle.vim/
+"dein
+if &compatible
+    set nocompatible
 endif
+let s:dein_dir = expand('~/.cache/dein')
+let s:dein_repo_dir = s:dein_dir . '/repos/github.com/Shougo/dein.vim'
 
-call neobundle#begin(expand('~/.vim/bundle/'))
+if !isdirectory(s:dein_repo_dir)
+    execute '!git clone https://github.com/Shougo/dein.vim' s:dein_repo_dir
+endif
+execute 'set runtimepath^=' . s:dein_repo_dir
 
-NeoBundleFetch 'Shougo/neobundle.vim'
-" General
-NeoBundle 'w0ng/vim-hybrid'
-NeoBundle 'Shougo/neocomplete.vim'
-NeoBundle 'nathanaelkane/vim-indent-guides'
-NeoBundle 'kana/vim-submode'
-" Languages
-NeoBundleLazy 'mxw/vim-jsx', {'autoload': {'filetypes': ['javascript']}}
-NeoBundleLazy 'pangloss/vim-javascript', {'autoload': {'filetypes': ['javascript']}}
-NeoBundleLazy 'elixir-lang/vim-elixir', {'autoload': {'filetypes': ['elixir', 'eelixir']}}
-NeoBundleLazy 'rust-lang/rust.vim', {'autoload': {'filetypes': ['rust']}}
-NeoBundleLazy 'plasticboy/vim-markdown', {'autoload': {'filetypes': ['markdown']}}
-NeoBundleLazy 'jimenezrick/vimerl', {'autoload': {'filetypes': ['erlang']}}
-NeoBundleLazy 'fatih/vim-go', {'autoload': {'filetypes': ['go']}}
-NeoBundleLazy 'cespare/vim-toml', {'autoload': {'filetypes': ['toml']}}
-NeoBundleLazy 'vim-scripts/ebnf.vim', {'autoload': {'filetypes': ['ebnf']}}
-NeoBundleLazy 'avakhov/vim-yaml', {'autoload': {'filetypes': ['yaml']}}
-" Others
-NeoBundleLazy 'thinca/vim-quickrun', {'autoload': {'command': ['QuickRun']}}
-NeoBundleLazy 'kannokanno/previm',
-            \{'autoload': {
-            \'filetypes': ['markdown'],
-            \'command': ['PrevimOpen']
-            \}}
-NeoBundleLazy 'tyru/open-browser.vim', {'autoload': {'command': ['PrevimOpen']}}
-NeoBundle 'ryo33/powerful-type.vim'
+if dein#load_state(s:dein_dir)
+    call dein#begin(s:dein_dir)
 
-call neobundle#end()
+    let s:toml= '~/.dein.toml'
+    let s:toml_lazy = '~/.dein_lazy.toml'
+    call dein#load_toml(s:toml, {'lazy': 0})
+    call dein#load_toml(s:toml_lazy, {'lazy': 1})
 
-" Required:
+    call dein#end()
+
+    set background=dark
+    colorscheme hybrid
+
+    call dein#save_state()
+endif
+if dein#check_install(['vimproc'])
+    call dein#install(['vimproc'])
+endif
+if dein#check_install()
+    call dein#install()
+endif
+"/dein
+
+" snippet
+imap <C-s> <Plug>(neosnippet_expand_or_jump)
+smap <C-s> <Plug>(neosnippet_expand_or_jump)
+
 filetype plugin indent on
-
-NeoBundleCheck
-"/NeoBundle
+syntax enable
 
 " status bar
-let g:lightline = { 
+let g:lightline = {
     \ 'colorscheme': 'solarized_dark.vim',
     \ 'component': {
     \   'readonly': '%{&readonly?"⭤":""}',
@@ -55,14 +50,16 @@ let g:lightline = {
 set laststatus=2
 " /status bar
 
+" Use deoplete.
+let g:deoplete#enable_at_startup = 1
+
 :let erlang_force_use_vimerl_indent = 0
 autocmd FileType erlang setl tabstop=8 expandtab shiftwidth=2 softtabstop=2
 
 autocmd FileType go setl tabstop=4 shiftwidth=4 softtabstop=4
 
-colorscheme hybrid
-
 au BufRead,BufNewFile *.md set filetype=markdown
+
 let g:previm_open_cmd = 'open -a "Google Chrome"'
 
 let g:neocomplete#enable_at_startup = 1
@@ -96,20 +93,21 @@ hi clear CursorLine
 " Prevent the delay of `O`.
 set timeout timeoutlen=5000 ttimeoutlen=100
 
+set tabstop=8
+set expandtab
+set softtabstop=4
+set shiftwidth=4
+
 autocmd FileType python setl autoindent
 autocmd FileType python setl smartindent cinwords=if,elif,else,for,while,try,except,finally,def,class
 autocmd FileType python setl tabstop=8 expandtab shiftwidth=4 softtabstop=4
 autocmd FileType python setlocal completeopt-=preview
 
 autocmd FileType yaml set tabstop=2
-
-set tabstop=8
-set expandtab
-set softtabstop=4
-set shiftwidth=4
-
-let g:indent_guides_enable_on_vim_startup=1
-let g:indent_guides_guide_size=1
+au FileType javascript set ts=2 sw=2 expandtab
+au FileType javascript.jsx set ts=2 sw=2 expandtab
+au FileType json set ts=2 sw=2 expandtab
+au FileType html set ts=2 sw=2 expandtab
 
 augroup filetypes
     autocmd!
