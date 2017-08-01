@@ -1,3 +1,4 @@
+scriptencoding utf-8
 "dein
 if &compatible
     set nocompatible
@@ -58,9 +59,11 @@ autocmd FileType erlang setl tabstop=8 expandtab shiftwidth=2 softtabstop=2
 
 autocmd FileType go setl tabstop=4 shiftwidth=4 softtabstop=4
 
-au BufRead,BufNewFile *.md set filetype=markdown
+let g:vim_markdown_folding_disabled = 1
 
-let g:previm_open_cmd = 'open -a "Google Chrome"'
+let vim_markdown_preview_browser='Safari'
+let vim_markdown_preview_github=1
+let vim_markdown_preview_hotkey='<C-m>'
 
 let g:neocomplete#enable_at_startup = 1
 
@@ -77,7 +80,6 @@ set novisualbell
 set clipboard+=unnamed
 set clipboard=unnamed
 set list
-set number
 set ruler
 set nocompatible
 set nostartofline
@@ -108,6 +110,7 @@ au FileType javascript set ts=2 sw=2 expandtab
 au FileType javascript.jsx set ts=2 sw=2 expandtab
 au FileType json set ts=2 sw=2 expandtab
 au FileType html set ts=2 sw=2 expandtab
+au FileType rust set ts=4 sw=4 expandtab
 
 augroup filetypes
     autocmd!
@@ -120,9 +123,12 @@ augroup filetypes
     autocmd BufNewFile,BufRead *.exs set filetype=elixir
     autocmd BufNewFile,BufRead *.eex set filetype=eelixir
     autocmd BufNewFile,BufRead *.ebnf set filetype=ebnf
+    autocmd BufNewFile,BufRead *.md set filetype=markdown
 augroup END
 
 command! MarkdownPreview PrevimOpen
+
+nnoremap <ESC> <ESC>:nohlsearch<CR>
 
 nnoremap s <Nop>
 nnoremap sj <C-w>j

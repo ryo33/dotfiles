@@ -18,3 +18,5 @@ alias gb='git branch'
 alias git=hub
 alias ga='git add'
 alias gap='git add -p'
+alias pip=pip3
+alias python=python3

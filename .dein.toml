@@ -13,3 +13,6 @@ repo =  'w0ng/vim-hybrid'
 
 [[plugins]]
 repo =  'kana/vim-submode'
+
+[[plugins]]
+repo = 'thinca/vim-ref'

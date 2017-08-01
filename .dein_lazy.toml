@@ -36,13 +36,14 @@ on_ft = ['javascript']
 repo = 'elixir-lang/vim-elixir'
 on_ft = ['elixir', 'eelixir']
 
-[[plugins]]
-repo = 'archSeer/elixir.nvim'
-on_ft = ['elixir', 'eelixir']
+# [[plugins]]
+# repo = 'archSeer/elixir.nvim'
+# on_ft = ['elixir', 'eelixir']
 
 [[plugins]]
 repo = 'rust-lang/rust.vim'
 on_ft = ['rust']
+rev = '2946a05c94c8ab8e047abdce3c775c48d734ee17'
 
 [[plugins]]
 repo = 'plasticboy/vim-markdown'
@@ -70,11 +71,9 @@ repo = 'thinca/vim-quickrun'
 on_cmd = ['QuickRun']
 
 [[plugins]]
-repo = 'kannokanno/previm',
+repo = 'JamshedVesuna/vim-markdown-preview'
 on_ft = ['markdown']
-on_cmd = ['PrevimOpen']
-depends = 'tyru/open-browser.vim'
 
 [[plugins]]
-repo = 'tyru/open-browser.vim'
-on_cmd = ['PrevimOpen']
+repo = 'airblade/vim-gitgutter'
+on_cmd = ['GitGutterEnable', 'GitGutterToggle']
