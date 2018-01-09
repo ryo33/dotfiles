@@ -21,9 +21,6 @@ if dein#load_state(s:dein_dir)
 
     call dein#end()
 
-    set background=dark
-    colorscheme hybrid
-
     call dein#save_state()
 endif
 if dein#check_install(['vimproc'])
@@ -33,6 +30,9 @@ if dein#check_install()
     call dein#install()
 endif
 "/dein
+
+set background=dark
+colorscheme hybrid
 
 " snippet
 imap <C-s> <Plug>(neosnippet_expand_or_jump)
@@ -77,7 +77,6 @@ set nobackup
 set backspace=indent,eol,start
 set vb t_vb=
 set novisualbell
-set clipboard+=unnamed
 set clipboard=unnamed
 set list
 set ruler
@@ -90,6 +89,7 @@ set textwidth=0
 set listchars=tab:»-,trail:-,extends:»,precedes:«,nbsp:%,eol:↲
 set virtualedit=all
 set cursorline
+set showcmd
 hi clear CursorLine
 
 " Prevent the delay of `O`.
@@ -124,6 +124,7 @@ augroup filetypes
     autocmd BufNewFile,BufRead *.eex set filetype=eelixir
     autocmd BufNewFile,BufRead *.ebnf set filetype=ebnf
     autocmd BufNewFile,BufRead *.md set filetype=markdown
+    autocmd BufNewFile,BufRead *.spec set filetype=markdown
 augroup END
 
 command! MarkdownPreview PrevimOpen
@@ -180,3 +181,10 @@ augroup END
 
 ":Rename newfile.name
 command! -nargs=1 -complete=file Rename f <args>|call delete(expand('#'))
+
+":ResearchPunctuation
+function ResearchPunctuation()
+    silent! %s/、/，/g
+    silent! %s/．/。/g
+endfunction
+command! -nargs=0 ResearchPunctuation call ResearchPunctuation()

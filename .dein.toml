@@ -16,3 +16,12 @@ repo =  'kana/vim-submode'
 
 [[plugins]]
 repo = 'thinca/vim-ref'
+
+[[plugins]]
+repo = 'scrooloose/nerdtree'
+
+[[plugins]]
+repo = 'Xuyuanp/nerdtree-git-plugin'
+
+[[plugins]]
+repo = 'udalov/kotlin-vim'
