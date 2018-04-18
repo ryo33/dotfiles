@@ -1,0 +1,12 @@
+urxvt.saveLines: 512
+urxvt.scrollBar: false
+urxvt.termName: screen-256color
+
+! color
+urxvt.foreground: #93a1a1
+urxvt.background: #313031
+
+urxvt*font: xft:Inconsolata:pixelsize=14:antialias=true:hinting=true
+urxvt*boldFont: xft:Inconsolata:pixelsize=14:antialias=true:bold:hinting=true
+urxvt*italicFont: xft:Inconsolata:pixelsize=14:antialias=true:italic:autohint=true:hinting=true
+urxvt*bolditalicFont: xft:Inconsolata:pixelsize=14:antialias=true:bold:italic:autohint=true:hinting=true

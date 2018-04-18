@@ -13,18 +13,14 @@ execute 'set runtimepath^=' . s:dein_repo_dir
 
 if dein#load_state(s:dein_dir)
     call dein#begin(s:dein_dir)
-
-    let s:toml= '~/.dein.toml'
-    let s:toml_lazy = '~/.dein_lazy.toml'
+    let s:toml= '~/dotfiles/.dein.toml'
+    let s:toml_lazy = '~/dotfiles/.dein_lazy.toml'
     call dein#load_toml(s:toml, {'lazy': 0})
     call dein#load_toml(s:toml_lazy, {'lazy': 1})
 
     call dein#end()
 
     call dein#save_state()
-endif
-if dein#check_install(['vimproc'])
-    call dein#install(['vimproc'])
 endif
 if dein#check_install()
     call dein#install()
@@ -105,7 +101,8 @@ autocmd FileType python setl smartindent cinwords=if,elif,else,for,while,try,exc
 autocmd FileType python setl tabstop=8 expandtab shiftwidth=4 softtabstop=4
 autocmd FileType python setlocal completeopt-=preview
 
-autocmd FileType yaml set tabstop=2
+au FileType yaml set tabstop=2
+au FileType markdown set ts=2 sw=2 expandtab
 au FileType javascript set ts=2 sw=2 expandtab
 au FileType javascript.jsx set ts=2 sw=2 expandtab
 au FileType json set ts=2 sw=2 expandtab
