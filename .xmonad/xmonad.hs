@@ -19,7 +19,10 @@ import XMonad
 import Data.Monoid
 import System.Exit
 
+import XMonad.Util.Run(spawnPipe)
 import XMonad.Util.EZConfig -- keys config
+import XMonad.Hooks.ManageDocks
+import XMonad.Hooks.Place(placeHook, fixed)
 
 import XMonad.Layout.Gaps
 import XMonad.Layout.ResizableTile
@@ -28,7 +31,6 @@ import XMonad.Layout.TwoPane
 import XMonad.Layout.Simplest
 import XMonad.Layout.SimplestFloat
 import XMonad.Layout.ToggleLayouts
-import XMonad.Hooks.ManageDocks
 import XMonad.Layout.PerWorkspace
 import XMonad.Layout.NoBorders
 
@@ -299,14 +301,15 @@ myLogHook = return ()
 -- hook by combining it with ewmhDesktopsStartup.
 --
 myStartupHook = return ()
--- TODO xmobar
  
 ------------------------------------------------------------------------
 -- Now run xmonad with all the defaults we set up.
  
 -- Run xmonad with the settings you specify. No need to modify this.
 --
-main = xmonad defaults
+main = do
+    xmproc <- spawnPipe "xmobar"
+    xmonad defaults
  
 -- A structure containing your configuration settings, overriding
 -- fields in the default config. Any you don't override, will
@@ -335,7 +338,7 @@ defaults = defaultConfig {
                                            $ onWorkspace "3" simplestFloat
                                            $ myLayout
                                            ),
-        manageHook         = myManageHook,
+        manageHook         = placeHook myPlacement <+> myManageHook <+> manageDocks,
         handleEventHook    = myEventHook,
         logHook            = myLogHook,
         startupHook        = myStartupHook
@@ -345,7 +348,7 @@ defaults = defaultConfig {
        [
        -- Lock screen
          ("M-C-q", spawn "gnome-screensaver-command -l")
-       , ("M-w", spawn "vivaldi")
+       , ("M-S-w", spawn "vivaldi")
        -- fullscreen
        , ("M-f", sendMessage ToggleLayout)
        -- recompile xmonad
@@ -366,3 +369,5 @@ defaults = defaultConfig {
        , ("M-<F11>", spawn "xrandr --output eDP-1 --brightness 1.2")
        , ("M-<F12>", spawn "xrandr --output eDP-1 --brightness 1.3")
        ]
+
+myPlacement = fixed (0.5, 0.5)
