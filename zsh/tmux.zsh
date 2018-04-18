@@ -24,13 +24,13 @@ function tmux_automatically_attach_session()
                     tmux attach-session
                     if [ $? -eq 0 ]; then
                         echo "$(tmux -V) attached session"
-                        return 0
+                        exit
                     fi
                 elif [[ "$REPLY" =~ ^[0-9]+$ ]]; then
                     tmux attach -t "$REPLY"
                     if [ $? -eq 0 ]; then
                         echo "$(tmux -V) attached session"
-                        return 0
+                        exit
                     fi
                 fi
             fi
@@ -42,6 +42,7 @@ function tmux_automatically_attach_session()
                 tmux -f <(echo "$tmux_config") new-session && echo "$(tmux -V) created new session supported OS X"
             else
                 tmux new-session && echo "tmux created new session"
+                exit
             fi
         fi
     fi
