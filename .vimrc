@@ -57,7 +57,7 @@ autocmd FileType go setl tabstop=4 shiftwidth=4 softtabstop=4
 
 let g:vim_markdown_folding_disabled = 1
 
-let vim_markdown_preview_browser='Safari'
+let vim_markdown_preview_browser='Vivaldi'
 let vim_markdown_preview_github=1
 let vim_markdown_preview_hotkey='<C-m>'
 
@@ -102,7 +102,7 @@ autocmd FileType python setl tabstop=8 expandtab shiftwidth=4 softtabstop=4
 autocmd FileType python setlocal completeopt-=preview
 
 au FileType yaml set tabstop=2
-au FileType markdown set ts=2 sw=2 expandtab
+au FileType markdown set ts=2 sw=2 expandtab smartindent! autoindent!
 au FileType javascript set ts=2 sw=2 expandtab
 au FileType javascript.jsx set ts=2 sw=2 expandtab
 au FileType json set ts=2 sw=2 expandtab
@@ -120,7 +120,6 @@ augroup filetypes
     autocmd BufNewFile,BufRead *.exs set filetype=elixir
     autocmd BufNewFile,BufRead *.eex set filetype=eelixir
     autocmd BufNewFile,BufRead *.ebnf set filetype=ebnf
-    autocmd BufNewFile,BufRead *.md set filetype=markdown
     autocmd BufNewFile,BufRead *.spec set filetype=markdown
 augroup END
 

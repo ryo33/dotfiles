@@ -50,6 +50,10 @@ repo = 'plasticboy/vim-markdown'
 on_ft = ['markdown']
 
 [[plugins]]
+repo = 'godlygeek/tabular'
+on_ft = ['markdown']
+
+[[plugins]]
 repo = 'jimenezrick/vimerl'
 on_ft = ['erlang']
 
@@ -77,3 +81,7 @@ on_ft = ['markdown']
 [[plugins]]
 repo = 'airblade/vim-gitgutter'
 on_cmd = ['GitGutterEnable', 'GitGutterToggle']
+
+[[plugins]]
+repo = 'udalov/kotlin-vim'
+on_ft = ['kotlin']

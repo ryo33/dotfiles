@@ -255,6 +255,7 @@ myLayout = spacing gapwidth $ gaps [(U, gwU), (D, gwD), (L, gwL), (R, gwR)]
 myManageHook = composeAll
     [ className =? "MPlayer"        --> doFloat
     , className =? "Gimp"           --> doFloat
+    , className =? "REAPER"         --> doFloat
     , resource  =? "desktop_window" --> doIgnore
     , resource  =? "kdesktop"       --> doIgnore ]
  
@@ -335,7 +336,7 @@ defaults = defaultConfig {
  
       -- hooks, layouts
         layoutHook         = avoidStruts $ ( toggleLayouts (noBorders Full)
-                                           $ onWorkspace "3" simplestFloat
+                                           $ onWorkspace "5" simplestFloat
                                            $ myLayout
                                            ),
         manageHook         = placeHook myPlacement <+> myManageHook <+> manageDocks,
@@ -349,6 +350,7 @@ defaults = defaultConfig {
        -- Lock screen
          ("M-C-q", spawn "gnome-screensaver-command -l")
        , ("M-S-w", spawn "vivaldi")
+       , ("M-S-C-q", spawn "shutdown -P now")
        -- fullscreen
        , ("M-f", sendMessage ToggleLayout)
        -- recompile xmonad
