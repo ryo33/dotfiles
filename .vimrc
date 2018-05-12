@@ -73,7 +73,7 @@ set nobackup
 set backspace=indent,eol,start
 set vb t_vb=
 set novisualbell
-set clipboard=unnamed
+set clipboard=unnamedplus,unnamed
 set list
 set ruler
 set nocompatible
@@ -124,6 +124,10 @@ augroup filetypes
 augroup END
 
 command! MarkdownPreview PrevimOpen
+
+" Treat '_' as a word separator and '-' as a part of a word
+set iskeyword-=_
+set iskeyword+=-
 
 nnoremap <ESC> <ESC>:nohlsearch<CR>
 
