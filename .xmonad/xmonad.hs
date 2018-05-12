@@ -23,6 +23,7 @@ import XMonad.Util.Run(spawnPipe)
 import XMonad.Util.EZConfig -- keys config
 import XMonad.Hooks.ManageDocks
 import XMonad.Hooks.Place(placeHook, fixed)
+import XMonad.Hooks.SetWMName
 
 import XMonad.Layout.Gaps
 import XMonad.Layout.ResizableTile
@@ -301,7 +302,7 @@ myLogHook = return ()
 -- It will add initialization of EWMH support to your custom startup
 -- hook by combining it with ewmhDesktopsStartup.
 --
-myStartupHook = return ()
+myStartupHook = setWMName "LG3D"
  
 ------------------------------------------------------------------------
 -- Now run xmonad with all the defaults we set up.
