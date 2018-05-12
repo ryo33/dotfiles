@@ -337,7 +337,6 @@ defaults = defaultConfig {
  
       -- hooks, layouts
         layoutHook         = avoidStruts $ ( toggleLayouts (noBorders Full)
-                                           $ onWorkspace "5" simplestFloat
                                            $ myLayout
                                            ),
         manageHook         = placeHook myPlacement <+> myManageHook <+> manageDocks,
@@ -350,14 +349,21 @@ defaults = defaultConfig {
        [
        -- Lock screen
          ("M-C-q", spawn "gnome-screensaver-command -l")
-       , ("M-S-w", spawn "vivaldi")
        , ("M-S-C-q", spawn "shutdown -P now")
+       -- Vivaldi
+       , ("M-S-w", spawn "vivaldi")
        -- fullscreen
        , ("M-f", sendMessage ToggleLayout)
        -- recompile xmonad
        , ("M-r", spawn "xmonad --recompile")
        -- toggle touchpad
        , ("M-m", spawn "~/dotfiles/bin/toggle-touchpad")
+       -- start jack
+       , ("M-S-j", spawn "jack-controll start")
+       -- file manager
+       , ("M-S-f", spawn "nautilus")
+       -- music player
+       , ("M-S-m", spawn "clementine")
        -- backlight
        , ("M-<F1>", spawn "xrandr --output eDP-1 --brightness 0.1")
        , ("M-<F2>", spawn "xrandr --output eDP-1 --brightness 0.2")
