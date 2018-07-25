@@ -41,7 +41,7 @@ import qualified Data.Map        as M
 -- The preferred terminal program, which is used in a binding below and by
 -- certain contrib modules.
 --
-myTerminal      = "urxvt -e /bin/zsh"
+myTerminal      = "urxvt -e zsh"
  
 -- Whether focus follows the mouse pointer.
 myFocusFollowsMouse :: Bool
@@ -344,39 +344,45 @@ defaults = defaultConfig {
         logHook            = myLogHook,
         startupHook        = myStartupHook
     }
- 
-       `additionalKeysP`
-       [
-       -- Lock screen
-         ("M-C-q", spawn "gnome-screensaver-command -l")
-       , ("M-S-C-q", spawn "shutdown -P now")
-       -- Vivaldi
-       , ("M-S-w", spawn "vivaldi")
-       -- fullscreen
-       , ("M-f", sendMessage ToggleLayout)
-       -- recompile xmonad
-       , ("M-r", spawn "xmonad --recompile")
-       -- toggle touchpad
-       , ("M-m", spawn "~/dotfiles/bin/toggle-touchpad")
-       -- start jack
-       , ("M-S-j", spawn "jack-controll start")
-       -- file manager
-       , ("M-S-f", spawn "nautilus")
-       -- music player
-       , ("M-S-m", spawn "clementine")
-       -- backlight
-       , ("M-<F1>", spawn "xrandr --output eDP-1 --brightness 0.1")
-       , ("M-<F2>", spawn "xrandr --output eDP-1 --brightness 0.2")
-       , ("M-<F3>", spawn "xrandr --output eDP-1 --brightness 0.3")
-       , ("M-<F4>", spawn "xrandr --output eDP-1 --brightness 0.4")
-       , ("M-<F5>", spawn "xrandr --output eDP-1 --brightness 0.5")
-       , ("M-<F6>", spawn "xrandr --output eDP-1 --brightness 0.6")
-       , ("M-<F7>", spawn "xrandr --output eDP-1 --brightness 0.7")
-       , ("M-<F8>", spawn "xrandr --output eDP-1 --brightness 0.8")
-       , ("M-<F9>", spawn "xrandr --output eDP-1 --brightness 0.9")
-       , ("M-<F10>", spawn "xrandr --output eDP-1 --brightness 1")
-       , ("M-<F11>", spawn "xrandr --output eDP-1 --brightness 1.2")
-       , ("M-<F12>", spawn "xrandr --output eDP-1 --brightness 1.3")
-       ]
+        `removeKeysP`
+        [
+            "M-S-q"
+        ]
+        `additionalKeysP`
+        [
+            -- Lock screen
+            ("M-C-q", spawn "gnome-screensaver-command -l")
+            , ("M-S-C-q", spawn "shutdown -P now")
+            -- Vivaldi
+            , ("M-S-w", spawn "vivaldi")
+            -- fullscreen
+            , ("M-f", sendMessage ToggleLayout)
+            -- recompile xmonad
+            , ("M-r", spawn "xmonad --recompile")
+            -- toggle touchpad
+            , ("M-m", spawn "~/dotfiles/bin/toggle-touchpad")
+            -- start jack
+            , ("M-S-j", spawn "jack-controll start")
+            -- file manager
+            , ("M-S-f", spawn "nautilus")
+            -- mail client
+            , ("M-S-m", spawn "thunderbird")
+            -- screenshot
+            , ("M-s", spawn "scrot -z -e 'mv $f ~/Pictures/Screenshots/%Y-%m-%d-%T_$wx$h.png'")
+            , ("M-S-s", spawn "sleep 0.3; scrot -z -s -e 'mv $f ~/Pictures/Screenshots/%Y-%m-%d-%T_$wx$h.png'")
+            -- backlight
+            , ("M-<F1>", spawn "xrandr --output eDP-1 --brightness 0.1")
+            , ("M-<F2>", spawn "xrandr --output eDP-1 --brightness 0.2")
+            , ("M-<F3>", spawn "xrandr --output eDP-1 --brightness 0.3")
+            , ("M-<F4>", spawn "xrandr --output eDP-1 --brightness 0.4")
+            , ("M-<F5>", spawn "xrandr --output eDP-1 --brightness 0.5")
+            , ("M-<F6>", spawn "xrandr --output eDP-1 --brightness 0.6")
+            , ("M-<F7>", spawn "xrandr --output eDP-1 --brightness 0.7")
+            , ("M-<F8>", spawn "xrandr --output eDP-1 --brightness 0.8")
+            , ("M-<F9>", spawn "xrandr --output eDP-1 --brightness 0.9")
+            , ("M-<F10>", spawn "xrandr --output eDP-1 --brightness 1")
+            , ("M-<F11>", spawn "xrandr --output eDP-1 --brightness 1.2")
+            , ("M-<F12>", spawn "xrandr --output eDP-1 --brightness 1.3")
+            ]
 
 myPlacement = fixed (0.5, 0.5)

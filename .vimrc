@@ -1,4 +1,3 @@
-scriptencoding utf-8
 "dein
 if &compatible
     set nocompatible
@@ -13,8 +12,8 @@ execute 'set runtimepath^=' . s:dein_repo_dir
 
 if dein#load_state(s:dein_dir)
     call dein#begin(s:dein_dir)
-    let s:toml= '~/dotfiles/.dein.toml'
-    let s:toml_lazy = '~/dotfiles/.dein_lazy.toml'
+    let s:toml= expand('~/dotfiles/.dein.toml')
+    let s:toml_lazy = expand('~/dotfiles/.dein_lazy.toml')
     call dein#load_toml(s:toml, {'lazy': 0})
     call dein#load_toml(s:toml_lazy, {'lazy': 1})
 
@@ -27,88 +26,164 @@ if dein#check_install()
 endif
 "/dein
 
+" Color Scheme
 set background=dark
 colorscheme hybrid
 
-" snippet
-imap <C-s> <Plug>(neosnippet_expand_or_jump)
-smap <C-s> <Plug>(neosnippet_expand_or_jump)
-
+" Modern Vim
+set nocompatible
 filetype plugin indent on
 syntax enable
 
-" status bar
-let g:lightline = {
-    \ 'colorscheme': 'solarized_dark.vim',
-    \ 'component': {
-    \   'readonly': '%{&readonly?"⭤":""}',
-    \ }
-    \ }
-set laststatus=2
-" /status bar
-
-" Use deoplete.
-let g:deoplete#enable_at_startup = 1
-
-:let erlang_force_use_vimerl_indent = 0
-autocmd FileType erlang setl tabstop=8 expandtab shiftwidth=2 softtabstop=2
-
-autocmd FileType go setl tabstop=4 shiftwidth=4 softtabstop=4
-
-let g:vim_markdown_folding_disabled = 1
-
-let vim_markdown_preview_browser='Vivaldi'
-let vim_markdown_preview_github=1
-let vim_markdown_preview_hotkey='<C-m>'
-
-let g:neocomplete#enable_at_startup = 1
-
-syntax on
+" UTF-8
+scriptencoding utf-8
 set encoding=utf8
 set fileencoding=utf-8
-set scrolloff=5
+
+" No dumps
 set noswapfile
 set nowritebackup
 set nobackup
-set backspace=indent,eol,start
-set vb t_vb=
-set novisualbell
-set clipboard=unnamedplus,unnamed
-set list
-set ruler
-set nocompatible
-set nostartofline
-set matchpairs& matchpairs+=<:>
-set showmatch
-set matchtime=3
-set textwidth=0
-set listchars=tab:»-,trail:-,extends:»,precedes:«,nbsp:%,eol:↲
+
+" No bells
+set noerrorbells
+set visualbell
+
+" Surpress warnings when switch buffers having changes
+set hidden
+
+" Free moving
+set scrolloff=0
 set virtualedit=all
-set cursorline
+
+" Normal backspace
+set backspace=indent,eol,start
+
+" Enable * and +
+set clipboard=unnamedplus,unnamed
+
+" Appearance of not printable
+set listchars=tab:»-,trail:-,extends:»,precedes:«,nbsp:%,eol:↲
+
+" Show cmd in status line
 set showcmd
+
+" Ultimate history
+set history=10000
+
+" Python
+let g:python3_host_prog = '/home/ryo/.pyenv/versions/3.6.4/bin/python3'
+let g:python_host_prog = '/home/ryo/.pyenv/versions/2.7/bin/python'
+
+" Enable matchit
+runtime macros/matchit.vim
+
+" Create a shorthand %% for %:h (directory of %)
+cnoremap <expr> %% getcmdtype() == ':' ? expand('%:h').'/' : '%%'
+
+" Use <C-p> and <C-n> as <Up> and <Down> in ex mode
+cnoremap <C-p> <Up>
+cnoremap <C-n> <Down>
+
+" Rich completion in ex mode
+set wildmenu
+set wildmode=full
+
+" Treat '-' as a part of a word
+set iskeyword+=-
+
+" Highlight the number of cursor line
+set cursorline
 hi clear CursorLine
 
 " Prevent the delay of `O`.
 set timeout timeoutlen=5000 ttimeoutlen=100
 
+" Show matching quotes or braces
+set showmatch
+
+" Default indent
 set tabstop=8
 set expandtab
 set softtabstop=4
 set shiftwidth=4
 
+set list
+set ruler
+set nostartofline
+set matchpairs& matchpairs+=<:>
+set matchtime=3
+set textwidth=0
+
+" Use Alt to control windows
+tnoremap <A-h> <C-\><C-N><C-w>h
+tnoremap <A-j> <C-\><C-N><C-w>j
+tnoremap <A-k> <C-\><C-N><C-w>k
+tnoremap <A-l> <C-\><C-N><C-w>l
+inoremap <A-h> <C-\><C-N><C-w>h
+inoremap <A-j> <C-\><C-N><C-w>j
+inoremap <A-k> <C-\><C-N><C-w>k
+inoremap <A-l> <C-\><C-N><C-w>l
+nnoremap <A-h> <C-w>h
+nnoremap <A-j> <C-w>j
+nnoremap <A-k> <C-w>k
+nnoremap <A-l> <C-w>l
+noremap <A-H> <C-w><
+noremap <A-J> <C-w>-
+noremap <A-K> <C-w>+
+noremap <A-L> <C-w>>
+
+" Search next with zz (center the current line)
+noremap <Leader>n nzz
+noremap <Leader>N Nzz
+
+" Clear nohlsearch & rerender
+nnoremap <silent> <C-l> :<C-u>nohlsearch<CR><C-l>
+
+" & with keeping substitution flags
+nnoremap & :&&<CR>
+xnoremap & :&&<CR>
+
+" Submode to navigate tabs
+call submode#enter_with('changetab', 'n', '', 'gt', 'gt')
+call submode#enter_with('changetab', 'n', '', 'gT', 'gT')
+call submode#map('changetab', 'n', '', 't', 'gt')
+call submode#map('changetab', 'n', '', 'T', 'gT')
+
+" Submode to navigate history call submode#enter_with('undo/redo', 'n', '', 'g-', 'g-')
+call submode#enter_with('undo/redo', 'n', '', 'g+', 'g+')
+call submode#map('undo/redo', 'n', '', '-', 'g-')
+call submode#map('undo/redo', 'n', '', '+', 'g+')
+
+":Rename newfile.name
+command! -nargs=1 -complete=file Rename f <args>|call delete(expand('#'))
+
+" auto comment off
+augroup auto_comment_off
+    autocmd!
+    autocmd BufEnter * setlocal formatoptions-=r
+    autocmd BufEnter * setlocal formatoptions-=o
+augroup END
+
+" Indent setting for each language
 autocmd FileType python setl autoindent
 autocmd FileType python setl smartindent cinwords=if,elif,else,for,while,try,except,finally,def,class
 autocmd FileType python setl tabstop=8 expandtab shiftwidth=4 softtabstop=4
 autocmd FileType python setlocal completeopt-=preview
 
-au FileType yaml set tabstop=2
-au FileType markdown set ts=2 sw=2 expandtab smartindent! autoindent!
-au FileType javascript set ts=2 sw=2 expandtab
-au FileType javascript.jsx set ts=2 sw=2 expandtab
-au FileType json set ts=2 sw=2 expandtab
-au FileType html set ts=2 sw=2 expandtab
-au FileType rust set ts=4 sw=4 expandtab
+autocmd FileType yaml set tabstop=2
+autocmd FileType markdown set ts=2 sw=2 expandtab
+autocmd FileType javascript set ts=2 sw=2 expandtab
+autocmd FileType javascript.jsx set ts=2 sw=2 expandtab
+autocmd FileType json set ts=2 sw=2 expandtab
+autocmd FileType html set ts=2 sw=2 expandtab
+autocmd FileType rust set ts=4 sw=4 expandtab
+autocmd FileType cpp set ts=4 sw=4 expandtab
+autocmd FileType erlang setl tabstop=8 expandtab shiftwidth=2 softtabstop=2
+autocmd FileType go setl tabstop=4 shiftwidth=4 softtabstop=4
+autocmd FileType tex setl tabstop=2 shiftwidth=2 softtabstop=2
 
+" Filetypes
 augroup filetypes
     autocmd!
     autocmd BufNewFile,BufRead *.md,*.mkd set filetype=markdown
@@ -122,69 +197,3 @@ augroup filetypes
     autocmd BufNewFile,BufRead *.ebnf set filetype=ebnf
     autocmd BufNewFile,BufRead *.spec set filetype=markdown
 augroup END
-
-command! MarkdownPreview PrevimOpen
-
-" Treat '_' as a word separator and '-' as a part of a word
-set iskeyword-=_
-set iskeyword+=-
-
-nnoremap <ESC> <ESC>:nohlsearch<CR>
-
-nnoremap s <Nop>
-nnoremap sj <C-w>j
-nnoremap sk <C-w>k
-nnoremap sl <C-w>l
-nnoremap sh <C-w>h
-nnoremap sJ <C-w>J
-nnoremap sK <C-w>K
-nnoremap sL <C-w>L
-nnoremap sH <C-w>H
-nnoremap sn gt
-nnoremap sp gT
-nnoremap sr <C-w>r
-nnoremap sw <C-w>w
-nnoremap sN :<C-u>bn<CR>
-nnoremap sP :<C-u>bp<CR>
-nnoremap st :<C-u>tabnew<CR>
-nnoremap s- :<C-u>sp<CR>
-nnoremap s\| :<C-u>vs<CR>
-nnoremap sq :<C-u>q<CR>
-nnoremap sQ :<C-u>bd<CR>
-
-let g:submode_keep_leaving_key = 1
-call submode#enter_with('bufmove', 'n', '', 's>', '<C-w>>')
-call submode#enter_with('bufmove', 'n', '', 's<', '<C-w><')
-call submode#enter_with('bufmove', 'n', '', 's.', '<C-w>+')
-call submode#enter_with('bufmove', 'n', '', 's,', '<C-w>-')
-call submode#map('bufmove', 'n', '', '>', '<C-w>>')
-call submode#map('bufmove', 'n', '', '<', '<C-w><')
-call submode#map('bufmove', 'n', '', '.', '<C-w>+')
-call submode#map('bufmove', 'n', '', ',', '<C-w>-')
-
-call submode#enter_with('changetab', 'n', '', 'gt', 'gt')
-call submode#enter_with('changetab', 'n', '', 'gT', 'gT')
-call submode#map('changetab', 'n', '', 't', 'gt')
-call submode#map('changetab', 'n', '', 'T', 'gT')
-
-call submode#enter_with('undo/redo', 'n', '', 'g-', 'g-')
-call submode#enter_with('undo/redo', 'n', '', 'g+', 'g+')
-call submode#map('undo/redo', 'n', '', '-', 'g-')
-call submode#map('undo/redo', 'n', '', '+', 'g+')
-
-" auto comment off
-augroup auto_comment_off
-    autocmd!
-    autocmd BufEnter * setlocal formatoptions-=r
-    autocmd BufEnter * setlocal formatoptions-=o
-augroup END
-
-":Rename newfile.name
-command! -nargs=1 -complete=file Rename f <args>|call delete(expand('#'))
-
-":ResearchPunctuation
-function ResearchPunctuation()
-    silent! %s/、/，/g
-    silent! %s/．/。/g
-endfunction
-command! -nargs=0 ResearchPunctuation call ResearchPunctuation()

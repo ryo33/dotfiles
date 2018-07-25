@@ -1,29 +1,93 @@
 [[plugins]]
-repo = 'Shougo/neocomplete'
-if = 'has("lua")'
-on_i = 1
-
-[[plugins]]
 repo = 'Shougo/deoplete.nvim'
 if = 'has("nvim")'
-on_i = 1
+on_event = ['InsertEnter']
+hook_source = '''
+let g:deoplete#enable_at_startup = 1
+inoremap <expr><tab> pumvisible() ? "\<C-n>" :
+\ neosnippet#expandable_or_jumpable() ?
+\   "\<Plug>(neosnippet_expand_or_jump)" : "\<tab>"
+'''
+
+[[plugins]]
+repo = 'Shougo/neosnippet-snippets'
+on_event = ['InsertEnter']
+on_ft = ['snippet']
 
 [[plugins]]
 repo = 'Shougo/neosnippet'
 depends = ['neosnippet-snippets']
-on_i = 1
+on_event = ['InsertEnter']
 on_ft = ['snippet']
+hook_source = '''
+" snippet
+imap <C-s> <Plug>(neosnippet_expand_or_jump)
+smap <C-s> <Plug>(neosnippet_expand_or_jump)
+'''
 
 [[plugins]]
-repo = 'Shougo/neomru.vim'
-on_path = '.*'
+repo = 'scrooloose/nerdtree'
+on_cmd = ['NERDTreeToggle']
 
 [[plugins]]
-repo = 'Shougo/unite.vim'
-depends = 'neomru.vim'
+repo = 'Xuyuanp/nerdtree-git-plugin'
+on_source = ['nerdtree']
+
+[[plugins]]
+repo = 'thinca/vim-quickrun'
+on_cmd = ['QuickRun']
+
+[[plugins]]
+repo = 'airblade/vim-gitgutter'
+on_cmd = ['GitGutterEnable', 'GitGutterToggle']
+
+[[plugins]]
+repo = 'thinca/vim-ref'
+on_cmd = ['Ref']
+
+[[plugins]]
+repo = 'tpope/vim-abolish'
+on_cmd = ['Abolish', 'Subvert']
+
+[[plugins]]
+repo = 'tpope/vim-fugitive'
+on_cmd = ['Git']
+
+[[plugins]]
+repo = 'mileszs/ack.vim'
+on_cmd = ['Ack']
+
+# Text Objects
+[[plugins]]
+repo = 'kana/vim-textobj-user'
+on_event = ['VimEnter']
+
+[[plugins]]
+repo = 'kana/vim-textobj-entire'
+on_event = ['VimEnter']
+depends = ['vim-textobj-user']
+
+[[plugins]]
+repo = 'kana/vim-textobj-lastpat'
+on_event = ['VimEnter']
+depends = ['vim-textobj-user']
+
+[[plugins]]
+repo = 'kana/vim-textobj-line'
+on_event = ['VimEnter']
+depends = ['vim-textobj-user']
+
+[[plugins]]
+repo = 'glts/vim-textobj-comment'
+on_event = ['VimEnter']
+depends = ['vim-textobj-user']
+
+[[plugins]]
+repo = 'beloglazov/vim-textobj-quotes'
+on_event = ['VimEnter']
+depends = ['vim-textobj-user']
 
 # Languages
-
 [[plugins]]
 repo = 'mxw/vim-jsx'
 on_ft = ['javascript']
@@ -36,9 +100,9 @@ on_ft = ['javascript']
 repo = 'elixir-lang/vim-elixir'
 on_ft = ['elixir', 'eelixir']
 
-# [[plugins]]
-# repo = 'archSeer/elixir.nvim'
-# on_ft = ['elixir', 'eelixir']
+[[plugins]]
+repo = 'archSeer/elixir.nvim'
+on_ft = ['elixir', 'eelixir']
 
 [[plugins]]
 repo = 'rust-lang/rust.vim'
@@ -56,6 +120,9 @@ on_ft = ['markdown']
 [[plugins]]
 repo = 'jimenezrick/vimerl'
 on_ft = ['erlang']
+hook_source = '''
+let erlang_force_use_vimerl_indent = 0
+'''
 
 [[plugins]]
 repo = 'fatih/vim-go'
@@ -68,19 +135,6 @@ on_ft = ['toml']
 [[plugins]]
 repo = 'avakhov/vim-yaml'
 on_ft = ['yaml']
-
-# Others
-[[plugins]]
-repo = 'thinca/vim-quickrun'
-on_cmd = ['QuickRun']
-
-[[plugins]]
-repo = 'JamshedVesuna/vim-markdown-preview'
-on_ft = ['markdown']
-
-[[plugins]]
-repo = 'airblade/vim-gitgutter'
-on_cmd = ['GitGutterEnable', 'GitGutterToggle']
 
 [[plugins]]
 repo = 'udalov/kotlin-vim'

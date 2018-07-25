@@ -2,23 +2,29 @@
 repo = 'Shougo/dein.vim'
 
 [[plugins]]
-repo = 'Shougo/vimproc.vim'
-build = 'make'
-
-[[plugins]]
-repo = 'Shougo/neosnippet-snippets'
+repo = 'mhinz/vim-startify'
 
 [[plugins]]
 repo =  'w0ng/vim-hybrid'
 
 [[plugins]]
 repo =  'kana/vim-submode'
+hook_source = '''
+" Don't dump the key on exiting submode
+let g:submode_keep_leaving_key = 1
+'''
 
 [[plugins]]
-repo = 'thinca/vim-ref'
+repo = 'tpope/vim-unimpaired'
 
 [[plugins]]
-repo = 'scrooloose/nerdtree'
+repo = 'nelstrom/vim-visual-star-search'
 
 [[plugins]]
-repo = 'Xuyuanp/nerdtree-git-plugin'
+repo = 'tpope/vim-surround'
+
+[[plugins]]
+repo = 'tpope/vim-repeat'
+
+[[plugins]]
+repo = 'tpope/vim-commentary'

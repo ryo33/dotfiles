@@ -6,10 +6,12 @@ urxvt.termName: screen-256color
 urxvt.foreground: #93a1a1
 urxvt.background: #002b36
 
-urxvt*font: xft:mono:pixelsize=14:antialias=true:hinting=true
-urxvt*boldFont: xft:mono:pixelsize=14:antialias=true:bold:hinting=true
-urxvt*italicFont: xft:mono:pixelsize=14:antialias=true:italic:autohint=true:hinting=true
-urxvt*bolditalicFont: xft:mono:pixelsize=14:antialias=true:bold:italic:autohint=true:hinting=true
+urxvt*font: xft:mono:pixelsize=16:antialias=true:hinting=true
+urxvt*boldFont: xft:mono:pixelsize=16:antialias=true:bold:hinting=true
+urxvt*italicFont: xft:mono:pixelsize=16:antialias=true:italic:autohint=true:hinting=true
+urxvt*bolditalicFont: xft:mono:pixelsize=16:antialias=true:bold:italic:autohint=true:hinting=true
+
+urxvt.keysym.M-minus: command:\000
 
 urxvt.lineSpace: 1
 
